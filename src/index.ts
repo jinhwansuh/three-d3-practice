@@ -15,17 +15,24 @@ if (WEBGL.isWebGLAvailable()) {
   camera.position.z = 3;
 
   // 렌더러
-  // const canvas = document.querySelector('#example1');
+  const canvas = document.querySelector('#three');
 
-  // const renderer = new THREE.WebGLRenderer({ canvas });
-  const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-  });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 
   // css로 조절가능
   renderer.setSize(window.innerWidth, window.innerHeight);
-
+  /* 
+  * 직접 적용할수도 있고 querySelector를 사용해서 적용할 수도 있다.
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+  });
   document.body.appendChild(renderer.domElement);
+  */
+
+  // 빛
+  const pointLight = new THREE.PointLight(0xfffff, 1);
+  pointLight.position.set(0, 2, 12);
+  scene.add(pointLight);
 
   // 매쉬
 
@@ -73,4 +80,6 @@ if (WEBGL.isWebGLAvailable()) {
   };
   window.addEventListener('resize', onWindowResize);
 } else {
+  const warning = WEBGL.getWebGLErrorMessage();
+  document.body.appendChild(warning);
 }
